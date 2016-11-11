@@ -8,7 +8,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Map;
 
-public class DBCompareTask2 extends DefaultTask {
+/**
+ * 这里不能使用Groovy, 只能用Java语言
+ * 使用Groovy编写这个类的时候, 会报莫名其妙的错误:
+ * - Class.forName()的时候报ClassNotFoundException
+ * - There is no suitable driver for jdbc sql url...
+ */
+public class DBCompareTask extends DefaultTask {
 
     @TaskAction
     public void compare() throws Exception {
@@ -17,18 +23,6 @@ public class DBCompareTask2 extends DefaultTask {
         if (ext == null) {
             throw new RuntimeException("please config dbCompare extension");
         }
-
-//        def driver = new Driver()
-//        println("driver is null: " + (driver == null))
-//        println("driver: " + driver)
-//        DriverManager.registerDriver(driver)
-//        println("more: " + DriverManager.drivers.hasMoreElements())
-//        DriverManager.drivers.each { d ->
-//            println(ext.testUrl + ": " + d.acceptsURL(ext.testUrl))
-//        }
-//        Class.forName(ext.driver)
-
-//        Class.forName(ext.driver, true, this.getActions()[0].getClass().classLoader)
         Class.forName(ext.getDriver());
         Connection testConn = null;
         Connection prodConn = null;
@@ -37,7 +31,7 @@ public class DBCompareTask2 extends DefaultTask {
             prodConn = DriverManager.getConnection(ext.getProdUrl(), ext.getProdUser(), ext.getProdPasswd());
             Map<String, Table> testTables = DBUtil.getTables(testConn.getMetaData());
             Map<String, Table> prodTables = DBUtil.getTables(prodConn.getMetaData());
-            DiffResult result = DBUtil.diff(testTables, prodTables, false);
+            DiffResult result = DBUtil.diff(testTables, prodTables, ext.getStrict());
             if (result.getDifferent()) {
                 throw new RuntimeException(result.getMessage());
             }

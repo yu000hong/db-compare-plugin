@@ -8,7 +8,7 @@ class DBComparePlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         project.getExtensions().create('dbCompareConfig', DBComparePluginExtension)
-        project.getTasks().create('dbCompare', DBCompareTask2)
+        project.getTasks().create('dbCompare', DBCompareTask)
     }
 
 }

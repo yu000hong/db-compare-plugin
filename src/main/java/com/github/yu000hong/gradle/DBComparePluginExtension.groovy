@@ -8,4 +8,5 @@ class DBComparePluginExtension {
     String prodUrl
     String prodUser
     String prodPasswd
+    boolean strict = false
 }

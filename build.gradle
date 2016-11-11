@@ -1,7 +1,6 @@
 
 apply plugin: 'groovy'
 apply plugin: 'java'
-apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.7
 
@@ -29,15 +28,5 @@ dependencies {
     compile localGroovy()
     compile 'org.codehaus.groovy:groovy-all:2.4.7'
 }
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId 'db-compare'
-            from components.java
-        }
-    }
-}
-
 
 
