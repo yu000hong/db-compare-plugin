@@ -1,0 +1,33 @@
+
+subprojects{
+    apply plugin: 'groovy'
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.7
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    sourceSets {
+        main {
+            java { srcDirs = [] }
+            groovy { srcDirs = ['src/main/java', 'src/main/groovy'] }
+        }
+        test {
+            java { srcDirs = [] }
+            groovy { srcDirs = ['src/test/java', 'src/test/groovy'] }
+        }
+    }
+
+    dependencies {
+        compile 'org.codehaus.groovy:groovy-all:2.4.7'
+    }
+
+}
+
+
+
+
+

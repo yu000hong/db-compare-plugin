@@ -1,0 +1,19 @@
+
+apply plugin: 'maven-publish'
+
+group 'com.yu000hong'
+version '1.0.2-SNAPSHOT'
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId 'db-compare'
+            from components.java
+        }
+    }
+}
