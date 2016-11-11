@@ -1,33 +1,43 @@
 
-subprojects{
-    apply plugin: 'groovy'
-    apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'maven-publish'
 
-    sourceCompatibility = 1.7
+sourceCompatibility = 1.7
 
-    repositories {
-        mavenCentral()
-        mavenLocal()
-    }
-
-    sourceSets {
-        main {
-            java { srcDirs = [] }
-            groovy { srcDirs = ['src/main/java', 'src/main/groovy'] }
-        }
-        test {
-            java { srcDirs = [] }
-            groovy { srcDirs = ['src/test/java', 'src/test/groovy'] }
-        }
-    }
-
-    dependencies {
-        compile 'org.codehaus.groovy:groovy-all:2.4.7'
-    }
-
+repositories {
+    mavenCentral()
+    mavenLocal()
 }
 
+sourceSets {
+    main {
+        java { srcDirs = [] }
+        groovy { srcDirs = ['src/main/java', 'src/main/groovy'] }
+    }
+    test {
+        java { srcDirs = [] }
+        groovy { srcDirs = ['src/test/java', 'src/test/groovy'] }
+    }
+}
 
+group 'com.github.yu000hong'
+version '1.0.0'
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile 'org.codehaus.groovy:groovy-all:2.4.7'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId 'db-compare'
+            from components.java
+        }
+    }
+}
 
 
 
