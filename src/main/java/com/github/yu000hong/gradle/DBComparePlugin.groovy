@@ -1,4 +1,4 @@
-package com.yu000hong.gradle
+package com.github.yu000hong.gradle
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

@@ -6,12 +6,12 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-//        classpath 'com.yu000hong:db-compare:1.0.2-SNAPSHOT'
+//        classpath 'com.github.yu000hong:db-compare:1.0.2-SNAPSHOT'
         classpath 'mysql:mysql-connector-java:5.1.18'
     }
 }
 
-//apply plugin: 'com.yu000hong.dbcompare'
+//apply plugin: 'com.github.yu000hong.dbcompare'
 //
 //dbCompareConfig {
 //    driver = 'com.mysql.jdbc.Driver'

@@ -1,4 +1,4 @@
-package com.yu000hong.gradle
+package com.github.yu000hong.gradle
 
 
 public class Field implements Comparable<Field>, Differable<Field> {

@@ -1,7 +1,6 @@
-package com.yu000hong.gradle
+package com.github.yu000hong.gradle
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.TaskAction
 
 import java.sql.Connection

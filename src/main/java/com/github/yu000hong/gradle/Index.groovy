@@ -1,4 +1,4 @@
-package com.yu000hong.gradle
+package com.github.yu000hong.gradle
 
 public class Index implements Comparable<Index>, Differable<Index> {
     private Map<Integer, String> map = new HashMap<>() //key:1,2,3...;value:column name

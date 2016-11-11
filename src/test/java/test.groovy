@@ -1,4 +1,4 @@
-import com.yu000hong.gradle.DBUtil
+import com.github.yu000hong.gradle.DBUtil
 
 import java.sql.DriverManager
 
