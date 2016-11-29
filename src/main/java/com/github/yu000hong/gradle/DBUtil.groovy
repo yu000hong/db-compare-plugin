@@ -4,6 +4,18 @@ import java.sql.DatabaseMetaData
 
 class DBUtil {
 
+    /**
+     * 获取数据库的数据表名列表
+     */
+    public static List<String> getTableNames(DatabaseMetaData meta) {
+        def tables = []
+        def rs = meta.getTables(null, null, null, ['TABLE'] as String[])
+        while (rs.next()) {
+            tables << rs.getString('TABLE_NAME')
+        }
+        return tables
+    }
+
     public static TreeMap<String, Table> getTables(DatabaseMetaData meta) {
         def map = new TreeMap<String, Table>()
         def rs = meta.getTables(null, null, null, ['TABLE'] as String[])
