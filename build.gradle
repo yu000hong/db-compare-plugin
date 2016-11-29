@@ -1,4 +1,3 @@
-
 apply plugin: 'groovy'
 apply plugin: 'java'
 
@@ -21,12 +20,33 @@ sourceSets {
 }
 
 group 'com.github.yu000hong'
-version '1.0.0'
 
 dependencies {
     compile gradleApi()
     compile localGroovy()
     compile 'org.codehaus.groovy:groovy-all:2.4.7'
+
+    //spring-common
+    compile group: 'com.github.yu000hong', name: 'spring-common', version: '1.1.0-SNAPSHOT'
+
+    //testng
+    testCompile group: 'org.testng', name: 'testng', version: '6.9.13.6'
+    //dbunit
+    testCompile group: 'dbunit', name: 'dbunit', version: '2.2'
+    //spring-jdbc
+    testCompile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.3.RELEASE'
+    //spring-test
+    testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.3.RELEASE'
+    //mysql
+    testCompile group: 'mysql', name: 'mysql-connector-java', version: '5.1.40'
+    //commons-dbcp
+    testCompile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+    //mockito
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+}
+
+test {
+    useTestNG()
 }
 
 
