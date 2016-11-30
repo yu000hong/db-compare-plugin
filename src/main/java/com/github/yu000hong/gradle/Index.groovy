@@ -1,6 +1,6 @@
 package com.github.yu000hong.gradle
 
-public class Index implements Comparable<Index>, Differable<Index> {
+public class Index implements Comparable<Index>, Differable<Index>, Definition {
     private Map<Integer, String> map = new HashMap<>() //key:1,2,3...;value:column name
 
     String name
@@ -22,6 +22,15 @@ public class Index implements Comparable<Index>, Differable<Index> {
             list << "`${map[i]}`"
         }
         return list
+    }
+
+    @Override
+    String getDefinition() {
+        if ('PRIMARY' == name) {
+            return "PRIMARY KEY (${fields().join(',')})"
+        } else {
+            return "${unique ? 'UNIQUE KEY' : 'KEY'} $name(${fields().join(', ')})"
+        }
     }
 
     @Override
@@ -54,17 +63,13 @@ public class Index implements Comparable<Index>, Differable<Index> {
     }
 
     @Override
-    DiffResult diff(Index o, boolean strict) {
+    boolean isDifferent(Index o) {
         if (!o || name != o.name || unique != o.unique || map.size() != o.map.size()) {
-            return new DiffResult(different: true, message: "index:$name")
+            return true
         }
         def found = map.find { k, v ->
             return map[k] != o.map[k]
         }
-        if (found) {
-            return new DiffResult(different: true, message: "index:$name")
-        } else {
-            return new DiffResult(different: false)
-        }
+        return found
     }
 }

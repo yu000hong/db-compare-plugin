@@ -1,23 +1,39 @@
 package com.github.yu000hong.gradle
 
 
-public class Table implements Comparable<Table>, Differable<Table> {
+public class Table implements Comparable<Table> {
     String name
     String comment
     final TreeMap<String, Field> fields = new TreeMap<>()
     final TreeMap<String, Index> indexes = new TreeMap<>()
 
-    @Override
-    int hashCode() {
-        name.hashCode()
-    }
-
-    void addField(Field field) {
+    public void addField(Field field) {
         fields.put(field.name, field)
     }
 
-    void addIndex(Index index) {
+    public void addIndex(Index index) {
         indexes.put(index.name, index)
+    }
+
+    public Set<String> getFieldNames() {
+        return fields.keySet()
+    }
+
+    public Set<String> getIndexNames() {
+        return indexes.keySet()
+    }
+
+    public Field getField(String fieldName) {
+        return fields.get(fieldName)
+    }
+
+    public Index getIndex(String indexName) {
+        return indexes.get(indexName)
+    }
+
+    @Override
+    int hashCode() {
+        return name.hashCode()
     }
 
     @Override
@@ -58,40 +74,5 @@ public class Table implements Comparable<Table>, Differable<Table> {
         }
     }
 
-    @Override
-    DiffResult diff(Table o, boolean strict) {
-        if (!o) {
-            return new DiffResult(different: true, message: "======================\ntable:$name\n")
-        }
-        def fieldKeys = fields.keySet() + o.fields.keySet()
-        def indexKeys = indexes.keySet() + o.indexes.keySet()
-        def results = new ArrayList<DiffResult>()
-        fieldKeys.each { key ->
-            if (fields[key] != null) {
-                results << fields[key].diff(o.fields[key], strict)
-            } else {
-                results << o.fields[key].diff(fields[key], strict)
-            }
-        }
-        indexKeys.each { key ->
-            if (indexes[key] != null) {
-                results << indexes[key].diff(o.indexes[key], strict)
-            } else {
-                results << o.indexes[key].diff(indexes[key], strict)
-            }
-        }
-        def diffs = results.findAll { result ->
-            return result.different
-        }
-        if (!diffs) {
-            return new DiffResult(different: false)
-        } else {
-            def msg = diffs.collect {
-                return it.message
-            }.join(',')
-            msg = "======================\ntable:$name\n${msg}\n"
-            return new DiffResult(different: true, message: msg)
-        }
-    }
 }
 

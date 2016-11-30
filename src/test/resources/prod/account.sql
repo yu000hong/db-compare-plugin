@@ -1,14 +1,12 @@
 #@formatter:off
 CREATE TABLE IF NOT EXISTS `account` (
   `uid`         BIGINT NOT NULL AUTO_INCREMENT COMMENT '用户UID',
-  `nickname`    VARCHAR(40) NOT NULL COMMENT '昵称',
-  `code`       VARCHAR(40) NOT NULL COMMENT '账号',
+  `nickname`    VARCHAR(20) NOT NULL COMMENT '昵称',
+  `code`       VARCHAR(40) NULL COMMENT '账号',
   `image`       VARCHAR(500) NOT NULL COMMENT '用户头像',
-  `intro`       VARCHAR(60) DEFAULT '' COMMENT '个人简介',
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`uid`),
-  KEY idx_nickname(`nickname`),
-  UNIQUE KEY idx_code(`code`)
+  UNIQUE KEY idx_nickname(`nickname`)
 )
   ENGINE = INNODB
   DEFAULT CHARSET = utf8mb4

@@ -1,0 +1,5 @@
+CREATE TABLE `comment` (
+  `id` BIGINT(20) NOT NULL
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;

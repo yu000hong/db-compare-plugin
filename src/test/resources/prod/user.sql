@@ -1,0 +1,9 @@
+CREATE TABLE `user` (
+  `id`         BIGINT(20)  NOT NULL AUTO_INCREMENT,
+  `name`       VARCHAR(10) NOT NULL,
+  `createTime` TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP
+  COMMENT '消息创建时间',
+  PRIMARY KEY (`id`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = latin1

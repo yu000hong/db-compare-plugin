@@ -18,4 +18,18 @@
         <property name="connectionInitSqls" value="SET NAMES utf8mb4"/>
     </bean>
 
+    <bean id="prodDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/prod?useUnicode=yes&amp;characterEncoding=UTF-8&amp;autoReconnect=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="yu000hong"/>
+        <property name="initialSize" value="10"/>
+        <property name="maxActive" value="60"/>
+        <property name="maxIdle" value="30"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="validationQuery" value="SELECT 1"/>
+        <property name="connectionInitSqls" value="SET NAMES utf8mb4"/>
+    </bean>
+
 </beans>

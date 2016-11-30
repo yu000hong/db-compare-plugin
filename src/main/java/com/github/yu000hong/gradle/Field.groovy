@@ -1,7 +1,7 @@
 package com.github.yu000hong.gradle
 
 
-public class Field implements Comparable<Field>, Differable<Field> {
+public class Field implements Comparable<Field>, Differable<Field>, Definition {
     String name
     String type
     int size
@@ -9,6 +9,21 @@ public class Field implements Comparable<Field>, Differable<Field> {
     String defaultValue
     boolean autoIncrement
     String comment
+
+    @Override
+    String getDefinition() {
+        def definition = "$type($size)"
+        if (!nullable) {
+            definition = "$definition NOT NULL"
+        }
+        if (defaultValue != null) {
+            definition = "$definition DEFAULT '$defaultValue'"
+        }
+        if (autoIncrement) {
+            definition = "$definition AUTO_INCREMENT"
+        }
+        return definition
+    }
 
     @Override
     int hashCode() {
@@ -42,7 +57,7 @@ public class Field implements Comparable<Field>, Differable<Field> {
         if (comment != null && !comment.isAllWhitespace()) {
             text = "$text COMMENT '$comment'"
         }
-        text
+        return text
     }
 
     @Override
@@ -55,14 +70,12 @@ public class Field implements Comparable<Field>, Differable<Field> {
     }
 
     @Override
-    DiffResult diff(Field o, boolean strict) {
+    boolean isDifferent(Field o) {
         if (o != null && name == o.name && type == o.type
                 && size == o.size && nullable == o.nullable
                 && defaultValue == o.defaultValue && autoIncrement == o.autoIncrement) {
-            if (!strict || comment == o.comment) {
-                return new DiffResult(different: false)
-            }
+            return false
         }
-        return new DiffResult(different: true, message: "field:$name")
+        return true
     }
 }
