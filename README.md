@@ -17,7 +17,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.github.yu000hong:db-compare-plugin:1.0.3'
+        classpath 'com.github.yu000hong:db-compare-plugin:1.0.5'
         classpath 'mysql:mysql-connector-java:5.1.18'
     }
 }
@@ -25,13 +25,13 @@ buildscript {
 apply plugin: 'com.github.yu000hong.dbcompare'
 
 dbCompareConfig{
-    testUrl = 
-    testUser
-    testPasswd
-    prodUrl
-    prodUser
-    prodPasswd
-    driver = 'com.mysql.Driver'
+    testUrl = 'jdbc:mysql://localhost:3306/test'
+    testUser = 'root'
+    testPasswd = 'root'
+    prodUrl = 'jdbc:mysql://localhost:3306/prod'
+    prodUser = 'root'
+    prodPasswd = 'root'
+    driver = 'com.mysql.jdbc.Driver'
     tables = '*'
 }
 ```
@@ -47,18 +47,18 @@ $> gradle dbCompare
 If there is no difference between two databases, then no output. Or, the output will look like as follow:
 
 ```
- ----------------------------------------------------------------------
- Table                       Test                    Prod
- ----------------------------------------------------------------------
- account                     -                       +
- ----------------------------------------------------------------------
- article                     -                       +
- ----------------------------------------------------------------------
- comment                     +                       -
- ----------------------------------------------------------------------
- message
-   F:xcid                    +                       -
-   F:commentId               VARCHAR(30) NOT NULL    VARCHAR(30) NULL
-   I:index_xcid_articleId    -                       +
- ----------------------------------------------------------------------
+ --------------------------------------------------------------------------
+     Table                       Test                    Prod
+ --------------------------------------------------------------------------
+     account                     -                       +
+ --------------------------------------------------------------------------
+     article                     -                       +
+ --------------------------------------------------------------------------
+     comment                     +                       -
+ --------------------------------------------------------------------------
+     message
+       F:XCID                    +                       -
+       F:COMMENT_ID              VARCHAR(30) NOT NULL    VARCHAR(30) NULL
+       I:INDEX_XCID_ARTICLEID    -                       +
+ --------------------------------------------------------------------------
 ```
