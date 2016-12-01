@@ -1,25 +1,64 @@
 # db-compare-plugin
 
+db-compare-plugin is a gradle plugin for database comparison. Because it
+compares database metadata through JDBC, so it can compare different databases.
+However, it can only compare the common parts of these databases.
+
+### Usage
+
+**build.gradle**
+
+```groovy
 buildscript {
     repositories {
         mavenCentral()
-        mavenLocal()
+        maven {
+            url 'https://jitpack.io'
+        }
     }
     dependencies {
-//        classpath 'com.github.yu000hong:db-compare:1.0.2-SNAPSHOT'
+        classpath 'com.github.yu000hong:db-compare-plugin:1.0.3'
         classpath 'mysql:mysql-connector-java:5.1.18'
     }
 }
 
-//apply plugin: 'com.github.yu000hong.dbcompare'
-//
-//dbCompareConfig {
-//    driver = 'com.mysql.jdbc.Driver'
-//    testUrl = 'jdbc:mysql://localhost:3306/test?useUnicode=yes&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true'
-//    testUser = 'root'
-//    testPasswd = 'yu000hong'
-//    prodUrl = 'jdbc:mysql://localhost:3306/prod?useUnicode=yes&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true'
-//    prodUser = 'root'
-//    prodPasswd = 'yu000hong'
-//}
+apply plugin: 'com.github.yu000hong.dbcompare'
 
+dbCompareConfig{
+    testUrl = 
+    testUser
+    testPasswd
+    prodUrl
+    prodUser
+    prodPasswd
+    driver = 'com.mysql.Driver'
+    tables = '*'
+}
+```
+
+**Execute**
+
+```bash
+$> gradle dbCompare
+```
+
+### Output
+
+If there is no difference between two databases, then no output. Or, the output will look like as follow:
+
+```
+ ----------------------------------------------------------------------
+ Table                       Test                    Prod
+ ----------------------------------------------------------------------
+ account                     -                       +
+ ----------------------------------------------------------------------
+ article                     -                       +
+ ----------------------------------------------------------------------
+ comment                     +                       -
+ ----------------------------------------------------------------------
+ message
+   F:xcid                    +                       -
+   F:commentId               VARCHAR(30) NOT NULL    VARCHAR(30) NULL
+   I:index_xcid_articleId    -                       +
+ ----------------------------------------------------------------------
+```
