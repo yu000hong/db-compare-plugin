@@ -1,6 +1,7 @@
 package com.github.yu000hong.gradle
 
 import com.github.yu000hong.spring.common.test.DBUnitUtil
+import com.github.yu000hong.spring.common.util.JsonUtil
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests
 import org.testng.Assert
@@ -17,12 +18,15 @@ class TestDBUtil extends AbstractTestNGSpringContextTests {
     private DBUnitUtil dbUnitUtil
     private DatabaseMetaData meta
 
-    @Resource(name = 'testDataSource')
+    @Resource(name = 'testDataSourceH2')
     private DataSource dataSource
 
     @BeforeClass
     public void setup() {
         dbUnitUtil = new DBUnitUtil(dataSource, [])
+        dbUnitUtil.setType(DBUnitUtil.DBType.H2)
+        dbUnitUtil.setSqlDir("./src/test/resources/test/h2")
+        println(JsonUtil.toJson(DBUtil.getTableNames(dataSource.getConnection().getMetaData())))
         dbUnitUtil.assertEmpty()
         meta = dataSource.getConnection().getMetaData()
     }
@@ -88,15 +92,17 @@ class TestDBUtil extends AbstractTestNGSpringContextTests {
             Assert.assertNull(table)
             table = DBUtil.getTable(meta, tableName)
             Assert.assertNotNull(table)
-            Assert.assertNotNull(table.getField('uid'))
-            Assert.assertNotNull(table.getField('nickname'))
-            Assert.assertNotNull(table.getField('code'))
-            Assert.assertNotNull(table.getField('image'))
-            Assert.assertNotNull(table.getField('intro'))
-            Assert.assertNotNull(table.getField('create_time'))
-            Assert.assertNotNull(table.getIndex('PRIMARY'))
-            Assert.assertNotNull(table.getIndex('idx_nickname'))
-            Assert.assertNotNull(table.getIndex('idx_code'))
+            Assert.assertEquals(table.fieldNames.size(), 6)
+            Assert.assertEquals(table.indexNames.size(), 3)
+            Assert.assertNotNull(table.getField('UID'))
+            Assert.assertNotNull(table.getField('NICKNAME'))
+            Assert.assertNotNull(table.getField('CODE'))
+            Assert.assertNotNull(table.getField('IMAGE'))
+            Assert.assertNotNull(table.getField('INTRO'))
+            Assert.assertNotNull(table.getField('CREATE_TIME'))
+//            Assert.assertNotNull(table.getIndex('PRIMARY'))//不同数据库主键名不一样
+            Assert.assertNotNull(table.getIndex('IDX_NICKNAME'))
+            Assert.assertNotNull(table.getIndex('IDX_CODE'))
         } finally {
             dbUnitUtil.dropTable(tableName)
         }

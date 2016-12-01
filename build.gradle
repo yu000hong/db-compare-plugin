@@ -43,6 +43,8 @@ dependencies {
     testCompile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
     //mockito
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+    //h2 database
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.193'
 }
 
 test {

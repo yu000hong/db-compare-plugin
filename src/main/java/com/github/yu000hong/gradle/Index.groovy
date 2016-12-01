@@ -6,6 +6,10 @@ public class Index implements Comparable<Index>, Differable<Index>, Definition {
     String name
     boolean unique
 
+    public void setName(String name) {
+        this.name = name?.toUpperCase()
+    }
+
     /**
      * 添加字段
      * @param position 字段所在索引位置

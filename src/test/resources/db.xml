@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-    <bean id="testDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <jdbc:embedded-database id="testDatabase" type="H2"/>
+
+    <jdbc:embedded-database id="prodDatabase" type="H2"/>
+
+    <bean id="testDataSourceH2" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:mem:testDatabase"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean id="prodDataSourceH2" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:mem:prodDatabase"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean id="testDataSourceMySQL" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url"
                   value="jdbc:mysql://localhost:3306/test?useUnicode=yes&amp;characterEncoding=UTF-8&amp;autoReconnect=true"/>
@@ -18,7 +36,7 @@
         <property name="connectionInitSqls" value="SET NAMES utf8mb4"/>
     </bean>
 
-    <bean id="prodDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <bean id="prodDataSourceMySQL" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url"
                   value="jdbc:mysql://localhost:3306/prod?useUnicode=yes&amp;characterEncoding=UTF-8&amp;autoReconnect=true"/>

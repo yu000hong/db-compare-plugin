@@ -10,6 +10,10 @@ public class Field implements Comparable<Field>, Differable<Field>, Definition {
     boolean autoIncrement
     String comment
 
+    public void setName(String name) {
+        this.name = name?.toUpperCase()
+    }
+
     @Override
     String getDefinition() {
         def definition = "$type($size)"

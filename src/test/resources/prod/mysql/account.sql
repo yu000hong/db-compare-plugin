@@ -12,9 +12,5 @@ CREATE TABLE IF NOT EXISTS `account` (
   DEFAULT CHARSET = utf8mb4
   AUTO_INCREMENT = 50000;
 
-#用户隐私设置
-#1.加我时需要验证
-#2.通过微信号搜索到我
-#3.允许陌生人查看10条攻略
 
 
