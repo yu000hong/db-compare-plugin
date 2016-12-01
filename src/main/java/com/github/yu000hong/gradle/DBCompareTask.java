@@ -91,21 +91,21 @@ public class DBCompareTask extends DefaultTask {
                 columnProd = result.getColumnProd();
             }
         }
-        columnTitle = padWidth(columnTitle);
+        columnTitle = padWidth(columnTitle) + PAD_WIDTH;
         columnTest = padWidth(columnTest);
         columnProd = padWidth(columnProd);
         int totalWidth = columnTitle + columnTest + columnProd;
         StringBuilder sb = new StringBuilder();
         sb.append(repeat("-", totalWidth))
                 .append("\n");
-        sb.append(padding("TABLE", columnTitle))
+        sb.append(padding(repeat(" ", PAD_WIDTH) + "TABLE", columnTitle))
                 .append(padding("TEST", columnTest))
                 .append(padding("PROD", columnProd))
                 .append("\n");
         sb.append(repeat("-", totalWidth))
                 .append("\n");
         for (TableResult result : diffResults) {
-            sb.append(padding(result.getTableName(), columnTitle));
+            sb.append(padding(repeat(" ", PAD_WIDTH) + result.getTableName(), columnTitle));
             Table testTable = result.getTestTable();
             Table prodTable = result.getProdTable();
             if (testTable == null || prodTable == null) {
@@ -128,21 +128,21 @@ public class DBCompareTask extends DefaultTask {
                 }
 
             }
-            sb.append(repeat("-", columnTitle + columnTest + columnProd)).append("\n");
+            sb.append(repeat("-", totalWidth)).append("\n");
         }
         return sb.toString();
     }
 
     private static void appendField(StringBuilder sb, String fieldName, Field testField,
                                     Field prodField, int columnTitle, int columnTest, int columnProd) {
-        sb.append(padding("  F:" + fieldName, columnTitle));
+        sb.append(padding(repeat(" ", PAD_WIDTH) + "  F:" + fieldName, columnTitle));
         appendDefinition(sb, testField, prodField, columnTest, columnProd);
         sb.append("\n");
     }
 
     private static void appendIndex(StringBuilder sb, String indexName, Index testIndex,
                                     Index prodIndex, int columnTitle, int columnTest, int columnProd) {
-        sb.append(padding("  I:" + indexName, columnTitle));
+        sb.append(padding(repeat(" ", PAD_WIDTH) + "  I:" + indexName, columnTitle));
         appendDefinition(sb, testIndex, prodIndex, columnTest, columnProd);
         sb.append("\n");
     }
