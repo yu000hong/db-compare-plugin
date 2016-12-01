@@ -37,7 +37,6 @@ public class DBCompareTask extends DefaultTask {
             prodConn = DriverManager.getConnection(ext.getProdUrl(), ext.getProdUser(), ext.getProdPasswd());
             String result = diff(testConn.getMetaData(), prodConn.getMetaData(), ext.getTables());
             if (result != null) {
-                System.err.println(result);
                 throw new RuntimeException(result);
             }
         } finally {

@@ -1,7 +1,6 @@
 package com.github.yu000hong.gradle
 
 import com.github.yu000hong.spring.common.test.DBUnitUtil
-import com.github.yu000hong.spring.common.util.JsonUtil
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests
 import org.testng.Assert
@@ -26,7 +25,6 @@ class TestDBUtil extends AbstractTestNGSpringContextTests {
         dbUnitUtil = new DBUnitUtil(dataSource, [])
         dbUnitUtil.setType(DBUnitUtil.DBType.H2)
         dbUnitUtil.setSqlDir("./src/test/resources/test/h2")
-        println(JsonUtil.toJson(DBUtil.getTableNames(dataSource.getConnection().getMetaData())))
         dbUnitUtil.assertEmpty()
         meta = dataSource.getConnection().getMetaData()
     }

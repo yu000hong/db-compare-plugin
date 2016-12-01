@@ -1,5 +1,5 @@
 apply plugin: 'groovy'
-apply plugin: 'java'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.7
 
@@ -48,6 +48,15 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
     //h2 database
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.193'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId 'db-compare-plugin'
+            from components.java
+        }
+    }
 }
 
 test {
