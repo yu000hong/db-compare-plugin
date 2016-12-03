@@ -4,6 +4,9 @@ import org.testng.annotations.Test
 
 import static org.testng.Assert.assertEquals
 
+/**
+ * Test class of FormatUtil
+ */
 class TestFormatUtil {
 
     @Test

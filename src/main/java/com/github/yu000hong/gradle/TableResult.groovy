@@ -30,8 +30,8 @@ class TableResult {
     private int columnProd
 
     private boolean different
-    private List<String> diffFieldNames = []
-    private List<String> diffIndexNames = []
+    private final List<String> diffFieldNames = []
+    private final List<String> diffIndexNames = []
 
     public TableResult(String tableName, Table testTable, Table prodTable) {
         this.tableName = tableName
@@ -65,7 +65,7 @@ class TableResult {
         return columnProd
     }
 
-    public boolean different() {
+    public boolean isDifferent() {
         return different
     }
 

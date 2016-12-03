@@ -1,6 +1,9 @@
 package com.github.yu000hong.gradle
 
-
+/**
+ * Table class
+ */
+@SuppressWarnings('ImplementationAsType')
 public class Table implements Comparable<Table> {
     String name
     String comment
@@ -57,7 +60,7 @@ public class Table implements Comparable<Table> {
         indexes.navigableKeySet().each { key ->
             text = "$text\n    ${indexes[key]},"
         }
-        text = text.substring(0, text.length() - 1)
+        text = text[0..text.length() - 1]
         text = "$text\n)\n"
         if (comment) {
             text = "${text}COMMENT '$comment'"
@@ -67,12 +70,7 @@ public class Table implements Comparable<Table> {
 
     @Override
     int compareTo(Table o) {
-        if (o) {
-            return this.name <=> o.name
-        } else {
-            return 1
-        }
+        return o ? this.name <=> o.name : 1
     }
 
 }
-

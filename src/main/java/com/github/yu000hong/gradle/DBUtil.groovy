@@ -3,6 +3,10 @@ package com.github.yu000hong.gradle
 import java.sql.DatabaseMetaData
 import java.sql.ResultSetMetaData
 
+/**
+ * Database Util
+ */
+@SuppressWarnings('DuplicateStringLiteral')
 class DBUtil {
 
     /**
@@ -20,6 +24,7 @@ class DBUtil {
     /**
      * 打印元数据信息
      */
+    @SuppressWarnings('Println')
     public static void print(ResultSetMetaData meta) {
         def count = meta.getColumnCount()
         println("Column count: $count")
@@ -27,7 +32,7 @@ class DBUtil {
             return
         }
         (1..count).each { i ->
-            println("------------------")
+            println('------------------')
             def columnClassName = meta.getColumnClassName(i)
             def columnName = meta.getColumnName(i)
             def columnLabel = meta.getColumnLabel(i)
@@ -66,7 +71,7 @@ class DBUtil {
                     nullable: nullable,
                     defaultValue: defValue,
                     autoIncrement: autoIncr == 'YES',
-                    comment: comment)
+                    comment: comment,)
         }
         return fields
     }

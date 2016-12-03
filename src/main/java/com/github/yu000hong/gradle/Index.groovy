@@ -1,7 +1,10 @@
 package com.github.yu000hong.gradle
 
+/**
+ * Index: one of elements of Table
+ */
 public class Index implements Comparable<Index>, Differable<Index>, Definition {
-    private Map<Integer, String> map = new HashMap<>() //key:1,2,3...;value:column name
+    private final Map<Integer, String> map = [:] //key:1,2,3...;value:column name
 
     String name
     boolean unique
@@ -32,9 +35,8 @@ public class Index implements Comparable<Index>, Differable<Index>, Definition {
     String getDefinition() {
         if ('PRIMARY' == name) {
             return "PRIMARY KEY (${fields().join(',')})"
-        } else {
-            return "${unique ? 'UNIQUE KEY' : 'KEY'} $name(${fields().join(', ')})"
         }
+        return "${unique ? 'UNIQUE KEY' : 'KEY'} $name(${fields().join(', ')})"
     }
 
     @Override
@@ -47,11 +49,8 @@ public class Index implements Comparable<Index>, Differable<Index>, Definition {
 
     @Override
     String toString() {
-        if ('PRIMARY' == name) {
-            return "PRIMARY KEY (${fields().join(',')})"
-        } else {
-            return "${unique ? 'UNIQUE KEY' : 'KEY'} $name(${fields().join(', ')})"
-        }
+        return ('PRIMARY' == name) ? "PRIMARY KEY (${fields().join(',')})"
+                : "${unique ? 'UNIQUE KEY' : 'KEY'} $name(${fields().join(', ')})"
     }
 
     @Override
@@ -67,12 +66,17 @@ public class Index implements Comparable<Index>, Differable<Index>, Definition {
     }
 
     @Override
+    int hashCode() {
+        return name.hashCode()
+    }
+
+    @Override
     boolean isDifferent(Index o) {
         if (!o || name != o.name || unique != o.unique || map.size() != o.map.size()) {
             return true
         }
         def found = map.find { k, v ->
-            return map[k] != o.map[k]
+            map[k] != o.map[k]
         }
         return found
     }

@@ -1,5 +1,8 @@
 package com.github.yu000hong.gradle
 
+/**
+ *
+ */
 class FormatUtil {
     public static final int PAD_WIDTH = 4
 

@@ -15,6 +15,7 @@ import java.util.HashSet;
 import static com.github.yu000hong.gradle.FormatUtil.*;
 
 /**
+ * The implementation of Task: dbCompare
  * 这里不能使用Groovy, 只能用Java语言
  * 使用Groovy编写这个类的时候, 会报莫名其妙的错误:
  * - Class.forName()的时候报ClassNotFoundException
@@ -70,7 +71,7 @@ public class DBCompareTask extends DefaultTask {
             Table testTable = DBUtil.getTable(testMeta, tableName);
             Table prodTable = DBUtil.getTable(prodMeta, tableName);
             TableResult result = new TableResult(tableName, testTable, prodTable);
-            if (result.different()) {
+            if (result.isDifferent()) {
                 diffResults.add(result);
             }
         }

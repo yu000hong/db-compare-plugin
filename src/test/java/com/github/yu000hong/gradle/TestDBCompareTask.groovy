@@ -11,6 +11,9 @@ import javax.annotation.Resource
 import javax.sql.DataSource
 import java.sql.DatabaseMetaData
 
+/**
+ * Test class of DBCompareTask
+ */
 @ContextConfiguration(locations = 'classpath:db.xml')
 class TestDBCompareTask extends AbstractTestNGSpringContextTests {
     private DBUnitUtil testDbUnitUtil
@@ -56,6 +59,7 @@ class TestDBCompareTask extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    @SuppressWarnings('Println')
     public void test() {
         String result = DBCompareTask.diff(testMeta, prodMeta, '*')
         println(result)

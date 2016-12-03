@@ -1,6 +1,8 @@
 package com.github.yu000hong.gradle
 
-
+/**
+ * Field: one of elements of Table
+ */
 public class Field implements Comparable<Field>, Differable<Field>, Definition {
     String name
     String type
@@ -66,20 +68,14 @@ public class Field implements Comparable<Field>, Differable<Field>, Definition {
 
     @Override
     int compareTo(Field o) {
-        if (o) {
-            return this.name <=> o.name
-        } else {
-            return 1
-        }
+        return o ? this.name <=> o.name : 1
     }
 
     @Override
     boolean isDifferent(Field o) {
-        if (o != null && name == o.name && type == o.type
+        return !(o != null && name == o.name && type == o.type
                 && size == o.size && nullable == o.nullable
-                && defaultValue == o.defaultValue && autoIncrement == o.autoIncrement) {
-            return false
-        }
-        return true
+                && defaultValue == o.defaultValue && autoIncrement == o.autoIncrement)
     }
+
 }

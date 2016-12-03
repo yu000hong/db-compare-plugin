@@ -12,6 +12,9 @@ import javax.annotation.Resource
 import javax.sql.DataSource
 import java.sql.DatabaseMetaData
 
+/**
+ * Test class of DBUtil
+ */
 @ContextConfiguration(locations = 'classpath:db.xml')
 class TestDBUtil extends AbstractTestNGSpringContextTests {
     private DBUnitUtil dbUnitUtil
@@ -24,7 +27,7 @@ class TestDBUtil extends AbstractTestNGSpringContextTests {
     public void setup() {
         dbUnitUtil = new DBUnitUtil(dataSource, [])
         dbUnitUtil.setType(DBUnitUtil.DBType.H2)
-        dbUnitUtil.setSqlDir("./src/test/resources/test/h2")
+        dbUnitUtil.setSqlDir('./src/test/resources/test/h2')
         dbUnitUtil.assertEmpty()
         meta = dataSource.getConnection().getMetaData()
     }
